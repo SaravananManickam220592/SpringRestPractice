@@ -22,7 +22,7 @@ import com.example.SpringRestExample.model.Product;
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
-	
+	/*
 	@Autowired
 	private ProductDao productDao;
 	
@@ -34,10 +34,10 @@ public class ProductsController {
 		return new ResponseEntity<String>("Product Added successfully",HttpStatus.OK);
 		else
 		return new ResponseEntity<String>("Some Internal Error",HttpStatus.INTERNAL_SERVER_ERROR); 
-	}
+	}*/
 	
 	@GetMapping
-	public ResponseEntity<String> getProducts(@RequestParam(value = "productName", required= false) String productName) throws ProductNotFoundException{
+	public ResponseEntity<String> getProducts(/*@RequestParam(value = "productName", required= false) String productName*/) throws ProductNotFoundException{
 //		List<Product> productList = productDao.getProducts(productName);
 //		if(productList.size() > 0 ){
 //			return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
@@ -49,18 +49,18 @@ public class ProductsController {
 		return new ResponseEntity<String>("Spring Application in Cloud",HttpStatus.OK);
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<String> updateProduct(@RequestBody Product product,@PathVariable("id") int id){
-		productDao.updateProduct(product,id);
-		return new ResponseEntity<String>("Product Updated successfully",HttpStatus.OK);
-	}
-	
-	@DeleteMapping
-	public ResponseEntity<String> deleteProduct(@RequestParam("id") int id){
-		productDao.deleteProduct(id);
-		return new ResponseEntity<String>("Product Deleted successfully",HttpStatus.OK);
-	}
-	
-	
+//	@PutMapping("/{id}")
+//	public ResponseEntity<String> updateProduct(@RequestBody Product product,@PathVariable("id") int id){
+//		productDao.updateProduct(product,id);
+//		return new ResponseEntity<String>("Product Updated successfully",HttpStatus.OK);
+//	}
+//	
+//	@DeleteMapping
+//	public ResponseEntity<String> deleteProduct(@RequestParam("id") int id){
+//		productDao.deleteProduct(id);
+//		return new ResponseEntity<String>("Product Deleted successfully",HttpStatus.OK);
+//	}
+//	
+//	
 
 }
