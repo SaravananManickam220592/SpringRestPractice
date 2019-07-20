@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.SpringRestExample.dao.ProductDao;
+import com.example.SpringRestExample.exception.ProductNotFoundException;
 import com.example.SpringRestExample.model.Product;
 
 @RestController
@@ -28,14 +29,24 @@ public class ProductsController {
 	
 	@PostMapping
 	public ResponseEntity<String> addProduct(@RequestBody Product product){
-		productDao.addProduct(product);
+		int result = productDao.addProduct(product);
+		if(result > 0 )
 		return new ResponseEntity<String>("Product Added successfully",HttpStatus.OK);
+		else
+		return new ResponseEntity<String>("Some Internal Error",HttpStatus.INTERNAL_SERVER_ERROR); 
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Product>> getProducts(){
-		List<Product> productList = productDao.getProducts();
-		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
+	public ResponseEntity<String> getProducts(@RequestParam(value = "productName", required= false) String productName) throws ProductNotFoundException{
+//		List<Product> productList = productDao.getProducts(productName);
+//		if(productList.size() > 0 ){
+//			return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
+//		}else{
+//			throw new ProductNotFoundException(productName+ " is not found ");
+//		}
+//		
+//	
+		return new ResponseEntity<String>("Spring Application in Cloud",HttpStatus.OK);
 	}
 	
 	@PutMapping("/{id}")

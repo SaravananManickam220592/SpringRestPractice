@@ -6,9 +6,9 @@ import com.example.SpringRestExample.model.Product;
 
 public interface ProductDao {
 	
-	public void addProduct(Product product);
+	public int addProduct(Product product);
 
-	public List<Product> getProducts();
+	public List<Product> getProducts(String productName);
 	
 	public void updateProduct(Product product,int id);
 	

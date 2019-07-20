@@ -19,19 +19,27 @@ public class ProductDaoImpl implements ProductDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public void addProduct(Product product) {
-		jdbcTemplate.execute(" INSERT INTO PRODUCTS VALUES(" + product.getProductId() + ",'" + product.getProductName()
-				+ "','" + product.getProductCategory() + "')");
+	public int addProduct(Product product) {
+		int result = jdbcTemplate.update(" INSERT INTO PRODUCTS VALUES(?,?,?)",
+				new Object[] { product.getProductId(), product.getProductName(), product.getProductCategory() });
+
+		return result;
 	}
 
 	@Override
-	public List<Product> getProducts() {
+	public List<Product> getProducts(String productName) {
+		
+		String query = "SELECT  * FROM PRODUCTS ";
+		
+		if(productName !=null){
+			query += " where NAME LIKE '%"+productName+"%'";
+		}
 
-		List<Map<String, Object>> produtsData = jdbcTemplate.queryForList("SELECT  * FROM PRODUCTS ");
+		List<Map<String, Object>> produtsData = jdbcTemplate.queryForList(query);
 
 		List<Product> productsList = new ArrayList<Product>();
 		for (Map<String, Object> data : produtsData) {
-			Product prod = new Product(((BigDecimal)  data.get("ID")).intValue(), data.get("NAME").toString(),
+			Product prod = new Product(((BigDecimal) data.get("ID")).intValue(), data.get("NAME").toString(),
 					data.get("CATEGORY").toString());
 			productsList.add(prod);
 		}
